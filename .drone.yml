@@ -1,0 +1,36 @@
+---
+kind: pipeline
+type: docker
+name: build
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: checkout
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: DOCKER_USERNAME
+      password:
+        from_secret: DOCKER_PASSWORD
+      repo: fullstacklab/dictionary
+      tags: latest
+
+---
+kind: pipeline
+type: exec
+name: deploy
+
+platform:
+  os: linux
+  arch: arm64
+
+depends_on:
+  - build
+
+steps:
+  - name: deploy using exec runner
+    commands:
+      - docker compose up -d --force-recreate
