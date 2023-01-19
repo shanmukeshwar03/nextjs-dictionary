@@ -3,6 +3,7 @@ services:
     image: fullstacklab/dictionary
     container_name: dictionary
     restart: unless-stopped
+    build: .
     network_mode: traefik
     labels:
       traefik.enable: true
@@ -10,3 +11,4 @@ services:
       traefik.http.routers.dictionary.rule: Host(`dictionary.fullstacklab.org`)
       traefik.http.routers.dictionary.entrypoints: https
       traefik.http.routers.dictionary.tls.certresolver: letsencrypt
+
