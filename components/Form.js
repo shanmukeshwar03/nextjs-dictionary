@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { searchResponse, loading, error } from "store/dictionary";
+import { error, loading, searchResponse } from "store/dictionary";
 import { URL } from "utils/constants";
 
 export default function Form() {
@@ -19,13 +18,16 @@ export default function Form() {
   }, [search]);
 
   const handleSubmit = async () => {
-    try {
-      const response = await axios.get(URL + search);
-      searchResponse.value = response.data;
-    } catch (e) {
-      error.value = true;
-      console.log(e);
-    }
+    await fetch(URL + search).then(async (res) => {
+      if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        searchResponse.value = data;
+      } else {
+        error.value = true;
+      }
+    });
+
     loading.value = false;
   };
 

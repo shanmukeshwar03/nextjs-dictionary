@@ -1,21 +1,7 @@
-import React from "react";
-import { searchResponse, error } from "store/dictionary";
-
-const Defination = ({ title, meaning }) => {
-  return (
-    <div className="flex flex-col my-4">
-      <span className="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-        {title}
-      </span>
-      <span className="font-normal text-gray-700 dark:text-gray-400">
-        {meaning}
-      </span>
-    </div>
-  );
-};
+import Defination from "components/Defination";
+import { error, searchResponse } from "store/dictionary";
 
 export default function () {
-  console.log(error.value);
   if (error.value) {
     return (
       <span className="mb-2 mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
